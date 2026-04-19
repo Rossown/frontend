@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Api } from '../services/api';
+import { AttendanceTable } from '../attendance-table/attendance-table';
 
 @Component({
   selector: 'app-zoom-home',
-  imports: [],
+  imports: [AttendanceTable],
   standalone: true,
   templateUrl: './zoom-home.html',
   styleUrl: './zoom-home.css',

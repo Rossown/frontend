@@ -1,0 +1,49 @@
+<div class="table-header">
+  <h2>Attendance Records</h2>
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Search by name or email..."
+    [ngModel]="searchTerm()"
+    (ngModelChange)="onSearchChange($event)"
+  />
+</div>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th (click)="sort('name')">Name <span class="sort-icon">{{ sortIcon('name') }}</span></th>
+        <th (click)="sort('email')">Email <span class="sort-icon">{{ sortIcon('email') }}</span></th>
+        <th (click)="sort('joinTime')">Join Time <span class="sort-icon">{{ sortIcon('joinTime') }}</span></th>
+        <th (click)="sort('leaveTime')">Leave Time <span class="sort-icon">{{ sortIcon('leaveTime') }}</span></th>
+        <th (click)="sort('duration')">Duration (min) <span class="sort-icon">{{ sortIcon('duration') }}</span></th>
+        <th (click)="sort('guest')">Guest <span class="sort-icon">{{ sortIcon('guest') }}</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (record of filteredRecords(); track record.name + record.joinTime) {
+        <tr>
+          <td>{{ record.name }}</td>
+          <td>{{ record.email || '—' }}</td>
+          <td>{{ record.joinTime }}</td>
+          <td>{{ record.leaveTime }}</td>
+          <td>{{ record.duration }}</td>
+          <td>
+            <span [class]="record.guest ? 'badge badge-yes' : 'badge badge-no'">
+              {{ record.guest ? 'Yes' : 'No' }}
+            </span>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="6" class="empty-state">No records match your search.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="table-footer">
+  <span>{{ filteredRecords().length }} record(s) shown</span>
+</div>
